@@ -24,6 +24,17 @@ def upload_csv(db):
         db.cursor.execute(insert)
     print(f"orders uploaded.")
 
+    db.cursor.execute(
+        """UPDATE orders SET order_estimated_delivery_date = NULL WHERE order_estimated_delivery_date = timestamp '1111-11-11 11:11:11'""")
+    db.cursor.execute(
+        """UPDATE orders SET order_approved_at = NULL WHERE order_approved_at = timestamp '1111-11-11 11:11:11'""")
+    db.cursor.execute(
+        """UPDATE orders SET order_delivered_carrier_date = NULL WHERE order_delivered_carrier_date = timestamp '1111-11-11 11:11:11'""")
+    db.cursor.execute(
+        """UPDATE orders SET order_delivered_customer_date = NULL WHERE order_delivered_customer_date = timestamp '1111-11-11 11:11:11'""")
+    db.cursor.execute(
+        """UPDATE orders SET order_purchase_timestamp = NULL WHERE order_purchase_timestamp = timestamp '1111-11-11 11:11:11'""")
+
     olist_order_reviews_dataset = pd.read_csv("./data/olist_order_reviews_dataset.csv")
     for row in range(len(olist_order_reviews_dataset)):
         review_id = olist_order_reviews_dataset.loc[row].values[0]
